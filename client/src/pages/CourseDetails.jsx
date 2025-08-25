@@ -154,9 +154,9 @@ function CourseDetails() {
                 <span>{`(${ratingAndReviews.length} reviews)`}</span>
                 <span>{`${studentsEnrolled.length} students enrolled`}</span>
               </div>
-              <div> 
+              <div>
                 <p className="">
-                  Created By {`${instructor.firstName} ${instructor.lastName}`}
+                  Created By {instructor && instructor.firstName ? `${instructor.firstName} ${instructor.lastName}` : "Unknown"}
                 </p>
               </div>
               <div className="flex flex-wrap gap-5 text-lg">
@@ -243,17 +243,19 @@ function CourseDetails() {
               <div className="flex items-center gap-4 py-4">
                 <img
                   src={
-                    instructor.image
+                    instructor && instructor.image
                       ? instructor.image
-                      : `https://api.dicebear.com/5.x/initials/svg?seed=${instructor.firstName} ${instructor.lastName}`
+                      : instructor && instructor.firstName
+                        ? `https://api.dicebear.com/5.x/initials/svg?seed=${instructor.firstName} ${instructor.lastName}`
+                        : `https://api.dicebear.com/5.x/initials/svg?seed=Unknown`
                   }
                   alt="Author"
                   className="h-14 w-14 rounded-full object-cover"
                 />
-                <p className="text-lg">{`${instructor.firstName} ${instructor.lastName}`}</p>
+                <p className="text-lg">{instructor && instructor.firstName ? `${instructor.firstName} ${instructor.lastName}` : "Unknown"}</p>
               </div>
               <p className="text-richblack-50">
-                {instructor?.additionalDetails?.about}
+                {instructor && instructor.additionalDetails && instructor.additionalDetails.about ? instructor.additionalDetails.about : ""}
               </p>
             </div>
           </div>
